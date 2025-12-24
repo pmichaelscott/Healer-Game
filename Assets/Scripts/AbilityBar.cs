@@ -27,7 +27,8 @@ public class AbilityBar : MonoBehaviour
 
         // Ensure we have 6 abilities
         while (abilities.Count < 6)
-            abilities.Add(new Ability($"Ability {abilities.Count + 1}", null, "", 0f));
+            // abilities.Add(new Ability($"Ability {abilities.Count + 1}", null, "", 0f));
+            abilities.Add(ScriptableObject.CreateInstance<Ability>());
 
         // Create buttons
         for (int i = 0; i < 6; i++)
@@ -38,69 +39,9 @@ public class AbilityBar : MonoBehaviour
 
     void CreateAbilityButton(int index, Ability ability)
     {
-        RectTransform rt;
-        if (buttonPrefab != null)
-        {
-            rt = Instantiate(buttonPrefab, container);
-        }
-        else
-        {
-            var go = new GameObject($"AbilityButton_{index + 1}", typeof(RectTransform));
-            go.transform.SetParent(container, false);
-            rt = go.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(buttonWidth, buttonHeight);
 
-            // Background
-            var bgImage = go.AddComponent<Image>();
-            bgImage.color = new Color(0.3f, 0.3f, 0.3f, 0.9f);
-
-            // Icon
-            var iconGO = new GameObject("Icon", typeof(RectTransform));
-            iconGO.transform.SetParent(rt, false);
-            var iconRT = iconGO.GetComponent<RectTransform>();
-            iconRT.anchorMin = Vector2.zero;
-            iconRT.anchorMax = Vector2.one;
-            iconRT.offsetMin = Vector2.zero;
-            iconRT.offsetMax = Vector2.zero;
-            var iconImage = iconGO.AddComponent<Image>();
-            iconImage.raycastTarget = false;
-
-            // Cooldown overlay
-            var cdGO = new GameObject("Cooldown", typeof(RectTransform));
-            cdGO.transform.SetParent(rt, false);
-            var cdRT = cdGO.GetComponent<RectTransform>();
-            cdRT.anchorMin = Vector2.zero;
-            cdRT.anchorMax = Vector2.one;
-            cdRT.offsetMin = Vector2.zero;
-            cdRT.offsetMax = Vector2.zero;
-            var cdImage = cdGO.AddComponent<Image>();
-            cdImage.color = new Color(0f, 0f, 0f, 0.6f);
-            cdImage.type = Image.Type.Filled;
-            cdImage.fillMethod = Image.FillMethod.Vertical;
-            cdImage.fillOrigin = (int)Image.OriginVertical.Bottom;
-            cdImage.enabled = false;
-            cdImage.raycastTarget = false;
-
-            // Key bind text
-            var textGO = new GameObject("KeyBind", typeof(RectTransform));
-            textGO.transform.SetParent(rt, false);
-            var textRT = textGO.GetComponent<RectTransform>();
-            textRT.anchoredPosition = new Vector2(2, -2);
-            textRT.sizeDelta = new Vector2(20, 20);
-            var txt = textGO.AddComponent<Text>();
-            txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            txt.text = (index + 1).ToString();
-            txt.alignment = TextAnchor.UpperRight;
-            txt.color = new Color(1f, 1f, 0f, 1f);
-            txt.fontSize = 14;
-            txt.fontStyle = FontStyle.Bold;
-            txt.raycastTarget = false;
-
-            // Button
-            var btn = go.AddComponent<Button>();
-            btn.targetGraphic = bgImage;
-        }
-
+        RectTransform rt = Instantiate(buttonPrefab, container);
+        
         // Position horizontally at bottom
         rt.anchoredPosition = new Vector2((buttonWidth + spacing) * index, 0f);
 

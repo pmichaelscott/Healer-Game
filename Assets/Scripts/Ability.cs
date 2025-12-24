@@ -2,7 +2,8 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class Ability
+[CreateAssetMenu(fileName = "Ability", menuName = "Game/Ability")]
+public class Ability : ScriptableObject
 {
     public string abilityName;
     public Sprite icon;

@@ -218,9 +218,7 @@ MonoBehaviour:
   frameWidth: 100
   frameHeight: 28
   spacing: 6
-  partyMembers:
-  - {fileID: 1126788836}
-  - {fileID: 1860951738}
+  partyMembers: []
   autoCreateEventSystem: 1
   debugInvokeButtons: 0
 --- !u!114 &355864114
@@ -874,17 +872,15 @@ MonoBehaviour:
   characterName: Player
   description: 
   portrait: {fileID: 0}
---- !u!114 &1126788836 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2406848849335614585, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
-  m_PrefabInstance: {fileID: 2799766009159110727}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b52805c042120e9418d12a79e9a53943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: 0
+  destroyOnDeath: 0
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1464598585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -905,10 +901,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7145198348311737387, guid: 5c3e3c0c021d7f042b5de41bb5aef0ae, type: 3}
-    - target: {fileID: 2406848849335614585, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
-      propertyPath: currentHealth
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3857325649223816063, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
       propertyPath: m_Name
       value: partyMember-B
@@ -1031,17 +1023,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2189e6f5aa2e884499299828d5e1c95b, type: 3}
---- !u!114 &1860951738 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2406848849335614585, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
-  m_PrefabInstance: {fileID: 1464598585}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b52805c042120e9418d12a79e9a53943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
 --- !u!1 &1990162693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,16 +1228,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AbilityBar
   abilities:
-  - abilityName: Heal
-    icon: {fileID: 0}
-    description: A basic heal
-    cooldown: 0
-  - abilityName: Fast Heal
-    icon: {fileID: 0}
-    description: A quicker heal
-    cooldown: 0
+  - {fileID: 11400000, guid: b10f03e92541414469b09ac18f4c76d3, type: 2}
+  - {fileID: 11400000, guid: 1e1f36e57518e5544aaba6f203729f5a, type: 2}
   container: {fileID: 2060802256}
-  buttonPrefab: {fileID: 0}
+  buttonPrefab: {fileID: 8632856637411574772, guid: b94b5d19abf0ee94d855beaa0cac2253, type: 3}
   buttonWidth: 50
   buttonHeight: 50
   spacing: 4
@@ -1345,14 +1320,14 @@ PrefabInstance:
       propertyPath: characterName
       value: Sir A
       objectReference: {fileID: 0}
+    - target: {fileID: 679834522318853752, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1642542527078065396, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -8680797543115379092, guid: b388257b0cdaa3448a370a0b053acc7f, type: 3}
-    - target: {fileID: 2406848849335614585, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
-      propertyPath: currentHealth
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3857325649223816063, guid: 5db8951bbb3477f4d8f205b9214f08de, type: 3}
       propertyPath: m_Name
       value: partyMember-A

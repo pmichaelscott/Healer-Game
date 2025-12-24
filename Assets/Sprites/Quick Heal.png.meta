@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 26d408254680d1b41b219bd67efca6b0
+guid: f8179f9b2a5787f40a0c2fce06213065
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2903848411162822477
-    second: Heal_0
+      213: -7757727366563017015
+    second: Quick Heal_0
+  - first:
+      213: 2303923850712847199
+    second: Quick Heal_1
+  - first:
+      213: 4221928277806569131
+    second: Quick Heal_2
+  - first:
+      213: 8176746490347443906
+    second: Quick Heal_3
+  - first:
+      213: 1975654847409103964
+    second: Quick Heal_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +151,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Heal_0
+      name: Quick Heal_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 8
-        width: 50
-        height: 49
+        x: 0
+        y: 29
+        width: 40
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +166,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4741f4aeba8c4820800000000000000
-      internalID: 2903848411162822477
+      spriteID: 9ce4fa3ff04075490800000000000000
+      internalID: -7757727366563017015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quick Heal_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 17
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f531a47198e29ff10800000000000000
+      internalID: 2303923850712847199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quick Heal_2
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 19
+        width: 31
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba656d1666d479a30800000000000000
+      internalID: 4221928277806569131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quick Heal_3
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 13
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c6d4975c93a97170800000000000000
+      internalID: 8176746490347443906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quick Heal_4
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 10
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c542992cd9fea6b10800000000000000
+      internalID: 1975654847409103964
       vertices: []
       indices: 
       edges: []
@@ -174,7 +274,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Heal_0: 2903848411162822477
+      Quick Heal_0: -7757727366563017015
+      Quick Heal_1: 2303923850712847199
+      Quick Heal_2: 4221928277806569131
+      Quick Heal_3: 8176746490347443906
+      Quick Heal_4: 1975654847409103964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
