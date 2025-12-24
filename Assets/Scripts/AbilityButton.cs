@@ -2,39 +2,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// A single ability button on the action bar.
-/// Displays icon, cooldown, and key binding (1-6).
-/// </summary>
+
 public class AbilityButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Image iconImage;
-    [SerializeField] Image cooldownOverlay;
+    [SerializeField] Image coolDownOverlay;
     [SerializeField] Text keyBindText;
     [SerializeField] Button button;
 
     Ability ability;
     int slotIndex;
-    float cooldownRemaining = 0f;
+    float coolDownRemaining = 0f;
     System.Action<int> onAbilityClick;
 
     void Awake()
     {
         if (button == null) button = GetComponent<Button>();
-        if (button == null) button = gameObject.AddComponent<Button>();
+        
     }
 
     void Update()
     {
-        // Update cooldown display
-        if (cooldownRemaining > 0f)
+        // Update cool down display
+        if (coolDownRemaining > 0f)
         {
-            cooldownRemaining -= Time.deltaTime;
-            UpdateCooldownDisplay();
+            coolDownRemaining -= Time.deltaTime;
+            UpdateCoolDownDisplay();
         }
-        else if (cooldownOverlay != null && cooldownOverlay.enabled)
+        else if (coolDownOverlay != null && coolDownOverlay.enabled)
         {
-            cooldownOverlay.enabled = false;
+            coolDownOverlay.enabled = false;
         }
     }
 
@@ -64,27 +61,27 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
 
     public void Cast()
     {
-        if (cooldownRemaining > 0f) return;
+        if (coolDownRemaining > 0f) return;
         
-        cooldownRemaining = ability?.cooldown ?? 0f;
-        UpdateCooldownDisplay();
+        coolDownRemaining = ability?.coolDown ?? 0f;
+        UpdateCoolDownDisplay();
         onAbilityClick?.Invoke(slotIndex);
     }
 
-    void UpdateCooldownDisplay()
+    void UpdateCoolDownDisplay()
     {
-        if (cooldownOverlay == null) return;
+        if (coolDownOverlay == null) return;
 
-        if (cooldownRemaining > 0f)
+        if (coolDownRemaining > 0f)
         {
-            cooldownOverlay.enabled = true;
-            float percent = cooldownRemaining / (ability?.cooldown ?? 1f);
+            coolDownOverlay.enabled = true;
+            float percent = coolDownRemaining / (ability?.coolDown ?? 1f);
             percent = Mathf.Clamp01(percent);
-            cooldownOverlay.fillAmount = percent;
+            coolDownOverlay.fillAmount = percent;
         }
     }
 
     public Ability GetAbility() => ability;
-    public bool IsOnCooldown() => cooldownRemaining > 0f;
-    public float GetCooldownRemaining() => cooldownRemaining;
+    public bool IsOnCooldown() => coolDownRemaining > 0f;
+    public float GetCoolDownRemaining() => coolDownRemaining;
 }

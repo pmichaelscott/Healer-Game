@@ -3,10 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Manages the ability bar UI with 6 ability slots (keys 1-6).
-/// Handles keyboard input and mouse clicks on buttons.
-/// </summary>
+
 public class AbilityBar : MonoBehaviour
 {
     [SerializeField] List<Ability> abilities = new List<Ability>();
