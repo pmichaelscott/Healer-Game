@@ -13,12 +13,15 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
     Ability ability;
     int slotIndex;
     float coolDownRemaining = 0f;
+    float maxCooldown = 0f;
+    RectTransform overlayRect;
     System.Action<int> onAbilityClick;
 
     void Awake()
     {
         if (button == null) button = GetComponent<Button>();
-        
+        if (coolDownOverlay != null)
+            overlayRect = coolDownOverlay.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -40,6 +43,7 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
         slotIndex = idx;
         ability = ab;
         onAbilityClick = onClickCallback;
+        maxCooldown = ab?.coolDown ?? 0f;
 
         // Set icon
         if (iconImage != null && ability?.icon != null)
@@ -70,14 +74,22 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
 
     void UpdateCoolDownDisplay()
     {
-        if (coolDownOverlay == null) return;
+        if (coolDownOverlay == null || overlayRect == null) return;
 
         if (coolDownRemaining > 0f)
         {
             coolDownOverlay.enabled = true;
-            float percent = coolDownRemaining / (ability?.coolDown ?? 1f);
+            float percent = coolDownRemaining / maxCooldown;
             percent = Mathf.Clamp01(percent);
-            coolDownOverlay.fillAmount = percent;
+            
+            // Scale overlay vertically from 1 (full) to 0 (empty)
+            Vector3 scale = overlayRect.localScale;
+            scale.y = percent;
+            overlayRect.localScale = scale;
+        }
+        else
+        {
+            coolDownOverlay.enabled = false;
         }
     }
 

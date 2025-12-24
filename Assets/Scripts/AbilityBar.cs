@@ -27,7 +27,6 @@ public class AbilityBar : MonoBehaviour
 
         // Ensure we have 6 abilities
         while (abilities.Count < 6)
-            // abilities.Add(new Ability($"Ability {abilities.Count + 1}", null, "", 0f));
             abilities.Add(ScriptableObject.CreateInstance<Ability>());
 
         // Create buttons
