@@ -20,8 +20,8 @@ public class PartyUIManager : MonoBehaviour
     public int spacing = 6;
 
     [Header("Party Members")]
-    [Tooltip("Assign Health components for party members (exclude player). If empty, will auto-find by tag 'PartyMember'.")]
-    public List<Health> partyMembers = new List<Health>();
+    [Tooltip("Assign Character components for party members (exclude player). If empty, will auto-find by tag 'PartyMember'.")]
+    public List<Character> partyMembers = new List<Character>();
 
     List<PartyFrame> frames = new List<PartyFrame>();
     SelectionIndicator[] indicators;
@@ -39,18 +39,18 @@ public class PartyUIManager : MonoBehaviour
             var foundByTag = GameObject.FindGameObjectsWithTag("PartyMember");
             foreach (var go in foundByTag)
             {
-                var h = go.GetComponent<Health>();
-                if (h != null) partyMembers.Add(h);
+                var c = go.GetComponent<Character>();
+                if (c != null) partyMembers.Add(c);
             }
 
             // Fallback: find all Health components in scene if tagging wasn't used
             if (partyMembers.Count == 0)
             {
-                var foundHealth = FindObjectsOfType<Health>();
-                foreach (var h in foundHealth)
+                var foundCharacter = FindObjectsOfType<Character>();
+                foreach (var c in foundCharacter)
                 {
                     // exclude player by name or tag if needed; for now add all
-                    partyMembers.Add(h);
+                    partyMembers.Add(c);
                 }
             }
         }
@@ -110,7 +110,7 @@ public class PartyUIManager : MonoBehaviour
         SelectIndex(-1);
     }
 
-    void CreateFrameForMember(int index, Health h)
+    void CreateFrameForMember(int index, Character c)
     {
         RectTransform rt;
         PartyFrame pf;
@@ -133,20 +133,20 @@ public class PartyUIManager : MonoBehaviour
 
         // Initialize and subscribe to health changes
         pf.Initialize(index, SelectIndex);
-        pf.SetName(h.GetComponent<Character>()?.GetCharacterName() ?? h.gameObject.name);
-        pf.SetHealthPercent(h.GetHealthPercent());
+        pf.SetName(c.GetComponent<Character>()?.GetCharacterName() ?? c.gameObject.name);
+        pf.SetHealthPercent(c.GetHealthPercent());
 
         // Prevent child graphics from intercepting raycasts so the Button receives clicks
         if (pf.fillImage != null) pf.fillImage.raycastTarget = false;
         if (pf.nameText != null) pf.nameText.raycastTarget = false;
         if (pf.backgroundImage != null) pf.backgroundImage.raycastTarget = true;
 
-        h.GetType();
+        c.GetType();
 
         // Subscribe to Health change event if present
-        h.GetComponent<Health>().onHealthChanged.AddListener((current) =>
+        c.GetComponent<Character>().onHealthChanged.AddListener((current) =>
         {
-            float percent = current / h.GetMaxHealth();
+            float percent = current / c.GetMaxHealth();
             pf.SetHealthPercent(percent);
         });
 
