@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4680912600283690756}
   - component: {fileID: 1642542527078065396}
-  - component: {fileID: 2406848849335614585}
   - component: {fileID: 679834522318853752}
   m_Layer: 7
   m_Name: partyMember
@@ -92,27 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2406848849335614585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3857325649223816063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b52805c042120e9418d12a79e9a53943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 100
-  destroyOnDeath: 0
-  onHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &679834522318853752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +106,12 @@ MonoBehaviour:
   characterName: 
   description: 
   portrait: {fileID: 0}
+  maxHealth: 100
+  currentHealth: 100
+  destroyOnDeath: 0
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []

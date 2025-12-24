@@ -36,16 +36,18 @@ public class PartyUIManager : MonoBehaviour
         // Auto-find if list empty
         if (partyMembers == null || partyMembers.Count == 0)
         {
-            var foundByTag = GameObject.FindGameObjectsWithTag("PartyMember");
+            var foundByTag = GameObject.FindGameObjectsWithTag("partyMember");
             foreach (var go in foundByTag)
             {
                 var c = go.GetComponent<Character>();
                 if (c != null) partyMembers.Add(c);
+                Debug.Log("PartyUIManager: Auto-found party member " + c.GetCharacterName(), this);
             }
 
             // Fallback: find all Health components in scene if tagging wasn't used
             if (partyMembers.Count == 0)
             {
+                Debug.LogWarning("PartyUIManager: No party members found by tag 'PartyMember'. Using all Character components in scene.", this);    
                 var foundCharacter = FindObjectsOfType<Character>();
                 foreach (var c in foundCharacter)
                 {
@@ -133,7 +135,8 @@ public class PartyUIManager : MonoBehaviour
 
         // Initialize and subscribe to health changes
         pf.Initialize(index, SelectIndex);
-        pf.SetName(c.GetComponent<Character>()?.GetCharacterName() ?? c.gameObject.name);
+        // pf.SetName(c.GetComponent<Character>()?.GetCharacterName() ?? c.gameObject.name);
+        pf.SetName(c.GetCharacterName() ?? c.gameObject.name);
         pf.SetHealthPercent(c.GetHealthPercent());
 
         // Prevent child graphics from intercepting raycasts so the Button receives clicks
