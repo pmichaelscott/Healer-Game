@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6582564006396049283}
   - component: {fileID: 4098618836840499771}
   - component: {fileID: -8932216968920658603}
+  - component: {fileID: 24722750409523257}
+  - component: {fileID: -5726767650724937627}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -104,16 +106,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0583fc15a72789a4b80621b2ed0997f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  maxHealth: 100
-  currentHealth: 100
-  destroyOnDeath: 1
   damage: 10
   attackInterval: 2
   target: {fileID: 0}
-  barWidth: 1
-  barHeight: 0.12
+--- !u!114 &24722750409523257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392902428077486547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18790196d84167442bcc0a1cd6a59f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  currentHealth: 100
+  destroyOnDeath: 1
+  barWidth: 0.3
+  barHeight: 0.06
   barBg: {fileID: 4305425615466286774}
   barFg: {fileID: 4576614041121243660}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-5726767650724937627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392902428077486547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832315dd85f86d746abbc1ff0411effb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAttacker
+  character: {fileID: 0}
+  targetHealth: {fileID: 0}
+  damage: 25
+  attackInterval: 2.5
 --- !u!1001 &5796119544114847656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,11 +157,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5940724523423149651, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.99636304
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5940724523423149651, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.71
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 5940724523423149651, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -164,11 +197,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6562535899980002970, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
       propertyPath: m_Size.x
-      value: 0.4
+      value: 0.2819401
       objectReference: {fileID: 0}
     - target: {fileID: 6562535899980002970, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
       propertyPath: m_Size.y
-      value: 0.07
+      value: 0.06658544
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562535899980002970, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3074016991339368837, guid: 213816ddd8eb4c44aa030caae43014c9, type: 3}
+    - target: {fileID: 6562535899980002970, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206652283206573870, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
+      propertyPath: m_Size.x
+      value: 0.28194007
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206652283206573870, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
+      propertyPath: m_Size.y
+      value: 0.06658544
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206652283206573870, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1798101370813217985, guid: ad096e023873be6489b719a514c83883, type: 3}
+    - target: {fileID: 7206652283206573870, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7768715736953278750, guid: c6c159fd657bf6544834cecfd1f9a4cf, type: 3}
       propertyPath: m_Name

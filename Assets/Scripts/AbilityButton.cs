@@ -82,7 +82,7 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
             }
 
             // Cancel cast if player starts moving
-            if (playerRb != null && playerRb.velocity.magnitude > moveCancelThreshold)
+            if (playerRb != null && playerRb.linearVelocity.magnitude > moveCancelThreshold)
             {
                 isCasting = false;
                 if (castSlider != null) castSlider.gameObject.SetActive(false);
@@ -122,7 +122,6 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
             button.onClick.AddListener(() => StartCast());
         maxCastTime = ability?.castTime ?? 0f;
 
-        // Setup cast bar
         
     }
 

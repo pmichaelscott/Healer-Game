@@ -9,8 +9,8 @@ public class Health : MonoBehaviour
     [SerializeField] bool destroyOnDeath = true;
 
     [Header("Health Bar")]
-    [SerializeField] float barWidth;
-    [SerializeField] float barHeight;
+    [SerializeField] float barWidth = 0.3f;
+    [SerializeField] float barHeight = 0.06f;
     [SerializeField] GameObject barBg;
     [SerializeField] GameObject barFg;
     SpriteRenderer bgSr;
@@ -23,6 +23,8 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
         if (barBg != null) bgSr = barBg.GetComponent<SpriteRenderer>();
         if (barFg != null) fgSr = barFg.GetComponent<SpriteRenderer>();
+        // barWidth = 0.3f;
+        // barHeight = 0.06f;
     }
 
     void Start()
