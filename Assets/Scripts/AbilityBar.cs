@@ -9,6 +9,7 @@ public class AbilityBar : MonoBehaviour
     [SerializeField] List<Ability> abilities = new List<Ability>();
     [SerializeField] RectTransform container;
     [SerializeField] RectTransform buttonPrefab;
+    [SerializeField] public Slider castSlider;
 
     [Header("Button Layout")]
     [SerializeField] int buttonWidth = 50;
@@ -16,9 +17,13 @@ public class AbilityBar : MonoBehaviour
     [SerializeField] int spacing = 4;
 
     List<AbilityButton> buttons = new List<AbilityButton>();
+    // Single active cast tracker
+    static public AbilityBar Instance { get; private set; }
+    AbilityButton activeCastingButton = null;
 
     void Start()
     {
+        Instance = this;
         if (container == null)
         {
             Debug.LogError("AbilityBar: container not assigned.", this);
@@ -76,6 +81,21 @@ public class AbilityBar : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Try to reserve the casting slot for this button. Returns true if reserved.
+    public bool TryStartCast(AbilityButton requester)
+    {
+        if (activeCastingButton != null) return false;
+        activeCastingButton = requester;
+        return true;
+    }
+
+    // Release the casting slot if held by requester
+    public void StopCast(AbilityButton requester)
+    {
+        if (activeCastingButton == requester)
+            activeCastingButton = null;
     }
 
     void OnAbilityCast(int slotIndex)

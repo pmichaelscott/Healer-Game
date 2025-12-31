@@ -15,11 +15,15 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
     float coolDownRemaining = 0f;
     float maxCooldown = 0f;
     RectTransform overlayRect;
-    [SerializeField] Image castOverlay;
-    RectTransform castOverlayRect;
+    // [SerializeField] Image castOverlay;
+    [SerializeField] Slider castSlider;
+    // RectTransform castOverlayRect;
     bool isCasting = false;
     float castRemaining = 0f;
     float maxCastTime = 0f;
+    [Header("Casting Settings")]
+    [SerializeField] float moveCancelThreshold = 0.1f;
+    Rigidbody2D playerRb;
     System.Action<int> onAbilityClick;
 
     void Awake()
@@ -27,9 +31,24 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
         if (button == null) button = GetComponent<Button>();
         if (coolDownOverlay != null)
             overlayRect = coolDownOverlay.GetComponent<RectTransform>();
-        if (castOverlay != null)
-            castOverlayRect = castOverlay.GetComponent<RectTransform>();
-        if (castOverlay != null) castOverlay.enabled = false;
+        // if (castOverlay != null)
+        //     castOverlayRect = castOverlay.GetComponent<RectTransform>();
+        // if (castOverlay != null) castOverlay.enabled = false;
+        castSlider = this.transform.parent.GetComponent<AbilityBar>().castSlider;
+
+
+        if (castSlider != null)
+        {
+            castSlider.gameObject.SetActive(false);
+            castSlider.minValue = 0f;
+            castSlider.maxValue = 1f;
+            castSlider.value = 0f;
+        }
+
+        // try to find the player Rigidbody2D so we can cancel casts when the player moves
+        var player = GameObject.FindObjectOfType<PlayerController>();
+        if (player != null)
+            playerRb = player.GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -51,18 +70,34 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
             castRemaining -= Time.deltaTime;
             float t = 1f - (castRemaining / Mathf.Max(1e-6f, maxCastTime));
             t = Mathf.Clamp01(t);
-            if (castOverlayRect != null)
+            // if (castOverlayRect != null)
+            // {
+            //     Vector3 s = castOverlayRect.localScale;
+            //     s.x = t;
+            //     castOverlayRect.localScale = s;
+            // }
+            if (castSlider != null)
             {
-                Vector3 s = castOverlayRect.localScale;
-                s.x = t;
-                castOverlayRect.localScale = s;
+                castSlider.value = t;
+            }
+
+            // Cancel cast if player starts moving
+            if (playerRb != null && playerRb.velocity.magnitude > moveCancelThreshold)
+            {
+                isCasting = false;
+                if (castSlider != null) castSlider.gameObject.SetActive(false);
+                // release casting slot
+                if (AbilityBar.Instance != null) AbilityBar.Instance.StopCast(this);
+                return;
             }
 
             if (castRemaining <= 0f)
             {
                 isCasting = false;
-                if (castOverlay != null) castOverlay.enabled = false;
+                // if (castOverlay != null) castOverlay.enabled = false;
+                if (castSlider != null) castSlider.gameObject.SetActive(false);
                 TriggerCastComplete();
+                if (AbilityBar.Instance != null) AbilityBar.Instance.StopCast(this);
             }
         }
     }
@@ -86,6 +121,9 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
         if (button != null)
             button.onClick.AddListener(() => StartCast());
         maxCastTime = ability?.castTime ?? 0f;
+
+        // Setup cast bar
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -98,27 +136,24 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
         if (ability == null) return;
         if (coolDownRemaining > 0f) return; // still cooling down
         if (isCasting) return;
-
-        if (ability.castTime <= 0f)
+        // For timed casts, ensure no other cast is active
+        if (ability.castTime > 0f)
         {
-            // instant cast
-            TriggerCastComplete();
+            if (AbilityBar.Instance != null)
+            {
+                if (!AbilityBar.Instance.TryStartCast(this))
+                    return; // another ability is currently casting
+            }
+
+            isCasting = true;
+            if (castSlider != null) castSlider.gameObject.SetActive(true);
+            castRemaining = ability.castTime;
+            maxCastTime = ability.castTime;
         }
         else
         {
-            isCasting = true;
-            castRemaining = ability.castTime;
-            maxCastTime = ability.castTime;
-            if (castOverlay != null)
-            {
-                castOverlay.enabled = true;
-                if (castOverlayRect != null)
-                {
-                    Vector3 s = castOverlayRect.localScale;
-                    s.x = 0f;
-                    castOverlayRect.localScale = s;
-                }
-            }
+            // instant cast
+            TriggerCastComplete();
         }
     }
 
@@ -128,6 +163,7 @@ public class AbilityButton : MonoBehaviour, IPointerClickHandler
         onAbilityClick?.Invoke(slotIndex);
         // start cooldown
         coolDownRemaining = ability?.coolDown ?? 0f;
+        if (castSlider != null) castSlider.gameObject.SetActive(false);
         UpdateCoolDownDisplay();
     }
 
