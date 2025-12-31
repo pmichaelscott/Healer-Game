@@ -72,7 +72,7 @@ public class AbilityBar : MonoBehaviour
 
                 if (key != Key.None && Keyboard.current[key].wasPressedThisFrame)
                 {
-                    buttons[i].Cast();
+                    buttons[i].StartCast();
                 }
             }
         }
